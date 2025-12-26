@@ -47,7 +47,7 @@ pip install -r requirements.txt
 
 ---
 
-# Поднитие контейнера БД PostgreSQL в Docker
+# Поднятие контейнера БД PostgreSQL в Docker
 
 ## 1. Создать файл .env в корне проекта.
 
