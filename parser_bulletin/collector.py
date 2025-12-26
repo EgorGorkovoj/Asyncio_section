@@ -7,6 +7,31 @@ from page_load import RequestPageLoader
 
 
 class BulletinCollector:
+    """
+    Класс для асинхронного сбора ссылок на файлы бюллетеней с сайта биржи.
+
+    Отвечает за:
+        - обход страниц с результатами торгов;
+        - извлечение ссылок на файлы и дат публикации через LinkExtractor;
+        - фильтрацию ссылок по диапазону дат (start_date, end_date);
+        - контроль остановки обхода страниц при достижении старых данных.
+
+    Параметры:
+        page_url (str): URL первой страницы с результатами торгов.
+        loader (RequestPageLoader): Асинхронный загрузчик страниц.
+        extractor (LinkExtractor): Класс для извлечения ссылок и дат из HTML.
+        start_date (datetime.date): Дата начала диапазона сбора.
+        end_date (datetime.date): Дата конца диапазона сбора.
+
+    Методы:
+        collect(semaphore: asyncio.Semaphore) -> list[tuple[str, datetime.date]]:
+            Асинхронно собирает ссылки на файлы и даты публикации, соблюдая
+            лимит одновременных запросов через переданный семафор.
+
+        _validate_time(file_date) -> bool:
+            Проверяет, что дата файла не выходит за границы start_date.
+    """
+
     def __init__(
         self,
         page_url: str,

@@ -41,7 +41,8 @@ class MetricTonTableExtractor:
             pd.DataFrame:
                 Финальная очищенная таблица.
         """
-        df = pd.read_excel(self.filepath, header=None)
+
+        df = pd.read_excel(self.filepath, engine='xlrd', header=None)
 
         section_index = self._find_section(df)
 
